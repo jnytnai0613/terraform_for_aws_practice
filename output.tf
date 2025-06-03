@@ -1,5 +1,5 @@
-output "public_ip" {
-  value = aws_instance.example.public_ip
+output "alb_dns_name" {
+  value = aws_lb.examle.dns_name
   depends_on = [aws_security_group.instance]
-  description = "The public ip address of the web server"
+  description = "The domain name of the load balancer"
 }
