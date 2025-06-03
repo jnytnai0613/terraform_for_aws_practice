@@ -24,14 +24,14 @@ resource "aws_lb_listener" "http" {
 resource "aws_security_group" "alb" {
   name = "terraform-example-alb"
 
-  ingress = {
+  ingress {
     from_port = var.alb_ingress_port
     to_port = var.alb_ingress_port
     protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  egress = {
+  egress {
     from_port = var.alb_egress_port
     to_port = var.alb_egress_port
     protocol = "-1"
@@ -43,7 +43,7 @@ resource "aws_lb_target_group" "asg" {
   name = "terraform-asg-example"
   port = var.asg_server_port
   protocol = "HTTP"
-  vpc_id = data.aws_subnets.default.id
+  vpc_id = data.aws_vpc.default.id
 
   health_check {
     path = "/"
