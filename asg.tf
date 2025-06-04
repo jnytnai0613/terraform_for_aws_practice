@@ -21,6 +21,7 @@ data "aws_subnets" "default" {
   }
 }
 
+# 2024年10月より起動設定(aws_launch_configuration)が新規作成できなくなっている。
 resource "aws_launch_template" "example" {
   image_id        = "ami-026c39f4021df9abe"
   instance_type   = "t2.micro"
