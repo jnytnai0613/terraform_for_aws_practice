@@ -19,18 +19,6 @@ data "terraform_remote_state" "db" {
   }
 }
 
-/*
-locals {
-  user_data_script = <<EOF
-#!bin/bash
-echo "Hello World" > index.html
-echo "${data.terraform_remote_state.db.output.address}" >> index.html
-echo "${data.terraform_remote_state.db.output.port}" >> index.html
-nohup busybox httpd -f -p ${var.asg_server_port} &
-EOF
-}
-*/
-
 locals {
   user_data_script = templatefile("user-data.sh", {
     server_port = var.asg_server_port
