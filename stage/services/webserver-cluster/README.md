@@ -32,8 +32,8 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_alb_egress_port"></a> [alb\_egress\_port](#input\_alb\_egress\_port) | The Port the load balancer will use for HTTP response | `number` | `0` | no |
-| <a name="input_alb_ingress_port"></a> [alb\_ingress\_port](#input\_alb\_ingress\_port) | The Port the load balancer will use for HTTP requests | `number` | `80` | no |
+| <a name="input_alb_egress_port"></a> [alb\_egress\_port](#input\_alb\_egress\_port) | The Port the load balancer will use for egress | `number` | `0` | no |
+| <a name="input_alb_ingress_port"></a> [alb\_ingress\_port](#input\_alb\_ingress\_port) | The Port the load balancer will use for ingress | `number` | `80` | no |
 | <a name="input_asg_server_port"></a> [asg\_server\_port](#input\_asg\_server\_port) | The Port the server will use for HTTP requests | `number` | `8080` | no |
 
 ## Outputs
