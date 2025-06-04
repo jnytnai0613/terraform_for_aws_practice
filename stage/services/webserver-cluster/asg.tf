@@ -1,11 +1,3 @@
-locals {
-  user_data_script = <<EOF
-#!bin/bash
-echo "Hello World" > index.html
-nohup busybox httpd -f -p ${var.asg_server_port} &
-EOF
-}
-
 data "aws_vpc" "default" {
   default = true
 }
@@ -17,10 +9,40 @@ data "aws_subnets" "default" {
   }
 }
 
+data "terraform_remote_state" "db" {
+  backend = "s3"
+
+  config = {
+    bucket = "terraform-up-and-running-state-taniai"
+    key    = "stage/data-store/mysql/terraform.tfstate"
+    region = "ap-northeast-1"
+  }
+}
+
+/*
+locals {
+  user_data_script = <<EOF
+#!bin/bash
+echo "Hello World" > index.html
+echo "${data.terraform_remote_state.db.output.address}" >> index.html
+echo "${data.terraform_remote_state.db.output.port}" >> index.html
+nohup busybox httpd -f -p ${var.asg_server_port} &
+EOF
+}
+*/
+
+locals {
+  user_data_script = templatefile("user-data.sh", {
+    server_port = var.asg_server_port
+    db_address  = data.terraform_remote_state.db.outputs.address
+    db_port     = data.terraform_remote_state.db.outputs.port
+  })
+}
+
 # 2024年10月より起動設定(aws_launch_configuration)が新規作成できなくなっている。
 resource "aws_launch_template" "example" {
-  image_id        = "ami-026c39f4021df9abe"
-  instance_type   = "t2.micro"
+  image_id               = "ami-026c39f4021df9abe"
+  instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.instance.id]
 
   user_data = base64encode(local.user_data_script)
@@ -44,8 +66,8 @@ resource "aws_autoscaling_group" "example" {
   }
 
   desired_capacity = 3
-  min_size = 2
-  max_size = 10
+  min_size         = 2
+  max_size         = 10
 
   tag {
     key                 = "Name"
