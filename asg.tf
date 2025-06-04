@@ -1,7 +1,3 @@
-provider "aws" {
-  region = "ap-northeast-1"
-}
-
 locals {
   user_data_script = <<EOF
 #!bin/bash
