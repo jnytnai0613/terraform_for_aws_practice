@@ -1,5 +1,5 @@
 resource "aws_db_instance" "example" {
-  identifier_prefix   = "terraform-up-and-running"
+  identifier_prefix   = "stage-terraform-up-and-running"
   engine              = "mysql"
   engine_version      = "8.0"
   allocated_storage   = 10
