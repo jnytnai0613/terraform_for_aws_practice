@@ -13,7 +13,7 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_webserver-cluster"></a> [webserver-cluster](#module\_webserver-cluster) | ../../../modules/services/webserver-cluster | n/a |
+| <a name="module_webserver-cluster"></a> [webserver-cluster](#module\_webserver-cluster) | ../../../../modules/services/webserver-cluster | n/a |
 
 ## Resources
 
@@ -21,6 +21,7 @@ No requirements.
 |------|------|
 | [aws_autoscaling_schedule.scale_in_at_night](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_schedule) | resource |
 | [aws_autoscaling_schedule.scale_out_during_business_hours](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_schedule) | resource |
+| [aws_security_group_rule.allow_testing_inbound](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 
 ## Inputs
 

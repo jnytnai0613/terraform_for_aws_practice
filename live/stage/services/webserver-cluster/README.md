@@ -13,7 +13,7 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_webserver-cluster"></a> [webserver-cluster](#module\_webserver-cluster) | ../../../modules/services/webserver-cluster | n/a |
+| <a name="module_webserver-cluster"></a> [webserver-cluster](#module\_webserver-cluster) | ../../../../modules/services/webserver-cluster | n/a |
 
 ## Resources
 
