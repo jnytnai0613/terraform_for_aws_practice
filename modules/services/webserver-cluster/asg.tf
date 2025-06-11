@@ -28,12 +28,13 @@ locals {
     server_port = var.asg_server_port
     db_address  = data.terraform_remote_state.db.outputs.address
     db_port     = data.terraform_remote_state.db.outputs.port
+    server_text = var.server_text
   })
 }
 
 # 2024年10月より起動設定(aws_launch_configuration)が新規作成できなくなっている。
 resource "aws_launch_template" "example" {
-  image_id               = "ami-026c39f4021df9abe"
+  image_id               = var.ami
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.instance.id]
 

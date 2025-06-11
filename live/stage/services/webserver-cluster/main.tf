@@ -1,5 +1,9 @@
 module "webserver-cluster" {
-  source                 = "../../../../modules/services/webserver-cluster"
+  source = "../../../../modules/services/webserver-cluster"
+
+  ami = "ami-05b8c5705ba972d30"
+  server_text = "New Server Text"
+
   cluster_name           = "webserver-stage"
   db_remote_state_bucket = "terraform-up-and-running-state-taniai"
   db_remote_state_key    = "stage/data-store/mysql/terraform.tfstate"
