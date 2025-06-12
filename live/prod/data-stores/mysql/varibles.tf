@@ -1,3 +1,4 @@
+/*
 variable "db_username" {
   description = "The username for database"
   type        = string
@@ -9,3 +10,4 @@ variable "db_password" {
   type        = string
   sensitive   = true
 }
+*/
