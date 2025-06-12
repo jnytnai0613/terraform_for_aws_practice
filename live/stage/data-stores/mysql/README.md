@@ -18,13 +18,12 @@ No modules.
 | Name | Type |
 |------|------|
 | [aws_db_instance.example](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance) | resource |
+| [aws_secretsmanager_secret.creds](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret) | data source |
+| [aws_secretsmanager_secret_version.creds](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret_version) | data source |
 
 ## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_db_password"></a> [db\_password](#input\_db\_password) | The password for database | `string` | n/a | yes |
-| <a name="input_db_username"></a> [db\_username](#input\_db\_username) | The username for database | `string` | n/a | yes |
+No inputs.
 
 ## Outputs
 

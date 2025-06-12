@@ -19,8 +19,6 @@ No requirements.
 
 | Name | Type |
 |------|------|
-| [aws_autoscaling_schedule.scale_in_at_night](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_schedule) | resource |
-| [aws_autoscaling_schedule.scale_out_during_business_hours](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_schedule) | resource |
 | [aws_security_group_rule.allow_testing_inbound](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 
 ## Inputs

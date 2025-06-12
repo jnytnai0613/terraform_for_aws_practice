@@ -19,6 +19,8 @@ No modules.
 | Name | Type |
 |------|------|
 | [aws_autoscaling_group.example](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_group) | resource |
+| [aws_autoscaling_schedule.scale_in_at_night](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_schedule) | resource |
+| [aws_autoscaling_schedule.scale_out_during_business_hours](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_schedule) | resource |
 | [aws_launch_template.example](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template) | resource |
 | [aws_lb.examle](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb) | resource |
 | [aws_lb_listener.http](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener) | resource |
@@ -35,13 +37,16 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_ami"></a> [ami](#input\_ami) | The AMI to run in the cluster | `string` | n/a | yes |
 | <a name="input_asg_server_port"></a> [asg\_server\_port](#input\_asg\_server\_port) | The Port the server will use for HTTP requests | `number` | `8080` | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | The name to use for all the cluster resources | `string` | n/a | yes |
 | <a name="input_db_remote_state_bucket"></a> [db\_remote\_state\_bucket](#input\_db\_remote\_state\_bucket) | The name of the S3 bucket for the database's remote state | `string` | n/a | yes |
 | <a name="input_db_remote_state_key"></a> [db\_remote\_state\_key](#input\_db\_remote\_state\_key) | The path for the database's remote state in S3 | `string` | n/a | yes |
+| <a name="input_enable_autoscaling"></a> [enable\_autoscaling](#input\_enable\_autoscaling) | If set to true, enable auto scaling | `bool` | n/a | yes |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | The type of EC2 Instances to run (e.g. t2.micro) | `string` | n/a | yes |
 | <a name="input_max_size"></a> [max\_size](#input\_max\_size) | The maximum number of EC2 Instances in the ASG | `number` | n/a | yes |
 | <a name="input_min_size"></a> [min\_size](#input\_min\_size) | The minimum number of EC2 Instances in the ASG | `number` | n/a | yes |
+| <a name="input_server_text"></a> [server\_text](#input\_server\_text) | The text the web server should return | `string` | n/a | yes |
 
 ## Outputs
 
@@ -49,5 +54,4 @@ No modules.
 |------|-------------|
 | <a name="output_alb_dns_name"></a> [alb\_dns\_name](#output\_alb\_dns\_name) | The domain name of the load balancer |
 | <a name="output_alb_security_group_id"></a> [alb\_security\_group\_id](#output\_alb\_security\_group\_id) | The ID of the Security Group attached to the load balancer |
-| <a name="output_asg_name"></a> [asg\_name](#output\_asg\_name) | The name of the Auto Scaling Group |
 <!-- END_TF_DOCS -->
