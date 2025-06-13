@@ -1,7 +1,7 @@
 module "webserver-cluster" {
   source = "../../../../modules/services/webserver-cluster"
 
-  ami = "ami-05b8c5705ba972d30"
+  ami         = "ami-05b8c5705ba972d30"
   server_text = "New Server Text"
 
   cluster_name           = "webserver-stage"
