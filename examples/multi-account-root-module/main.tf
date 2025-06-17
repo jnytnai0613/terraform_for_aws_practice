@@ -3,6 +3,6 @@ module "multi-account-example" {
 
   providers = {
     aws.parent = aws.parent
-    aws.child = aws.child
+    aws.child  = aws.child
   }
 }
