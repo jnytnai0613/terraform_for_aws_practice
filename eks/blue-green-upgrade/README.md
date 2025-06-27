@@ -85,7 +85,7 @@ $ kubectl apply -f blue-green-upgrade/assets/sample-app/blue/fastapi.yaml
 ```
 この時、ExternalDNSによって、Route53のサブドメインへAレコードが登録されますが、ルーティングポリシーの重みづけを30にします。
 
-### 2. Green EKSクラスタデプロイ
+### 3. Green EKSクラスタデプロイ
 ```sh
 $ cd blue-cluster
 $ terraform init
@@ -116,7 +116,7 @@ $ kubectl apply -f blue-green-upgrade/assets/sample-app/green/fastapi.yaml
 Blueと同じドメインでIngressをデプロイします。</br>
 この時、ExternalDNSによってRoute53のサブドメインへ、Blue面とは異なりレコードIDが"test-green"となるAレコードが登録されますが、今回はルーティングポリシーの重みづけを70にします。
 
-### 3. 切り替え
+### 4. 切り替え
 1. しばらく両クラスタを稼働させ、Green面の新クラスタに問題がないことを確認します。
 1. Blue面のIngressの `.metadata.annotation.external-dns.alpha.kubernetes.io/aws-weigh` を 0 に変更し、再デプロイします。
 1. Route53のレコードIDが"test-blue"になっているAレコード、AAAAレコード、TXTレコードを削除し、ExternalDNSによって再度登録されるのを待ちます。
