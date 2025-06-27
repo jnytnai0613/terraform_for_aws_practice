@@ -21,7 +21,7 @@ blue-green-upgrade/
 - Terraform v1.12.2
 - AWS EKS (Blue: 1.32 / Green: 1.33)
   - Pod Identity
-- [AWS LoadBalancer Controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.13/)
+- [AWS Load Balancer Controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.13/)
 - [ExternalDNS](https://github.com/kubernetes-sigs/external-dns)
 - Route53 Weighted Routing
 
@@ -67,7 +67,7 @@ $ terraform apply
 この時、AWS LoadBalancer Controller、ExternalDNS、アプリケーションに紐づけます。</br>
 また、EKSではPod Identity Agent Add-onを有効化します。
 
-#### AWS LoadBalancer Controller、ExternalDNS、アプリケーションデプロイ
+#### AWS Load Balancer Controller、ExternalDNS、アプリケーションデプロイ
 ##### ALB Controller
 ```sh
 $ helm repo add eks https://aws.github.io/eks-charts
@@ -96,7 +96,7 @@ $ terraform apply
 この時、AWS LoadBalancer Controller、ExternalDNS、アプリケーションに紐づけます。</br>
 また、EKSではPod Identity Agent Add-onを有効化します。
 
-#### AWS LoadBalancer Controller、ExternalDNS、アプリケーションデプロイ
+#### AWS Load Balancer Controller、ExternalDNS、アプリケーションデプロイ
 Blueの面と同じ構成でGreen面もデプロイしていきます。
 ##### ALB Controller
 ```sh
