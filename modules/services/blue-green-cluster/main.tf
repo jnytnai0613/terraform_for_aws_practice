@@ -53,11 +53,11 @@ module "eks" {
 }
 
 ####################
-# Pod Identityz設定
+# Pod Identity設定
 # RoleとServiceAccountを紐づける
 # AWS公式のModule terraform-aws-eks-pod-identityでも可能だが、Roleの新規作成が前提となっている
 # 今回はBlueとGreenでRoleを同じものを使用するため、aws_eks_pod_identity_associationリソースを使用する
-# https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/blob/6d4aa31990e4179640c869505169ebc78f200e10/main.tf#L195
+# https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/blob/6d4aa31990e4179640c869505169ebc78f200e10/main.tf#L193
 ####################
 resource "aws_eks_pod_identity_association" "dynamo_read" {
   cluster_name    = module.eks.cluster_name
