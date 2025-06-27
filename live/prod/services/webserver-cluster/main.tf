@@ -1,5 +1,5 @@
 module "webserver-cluster" {
-  source                 = "../../../../modules/services/webserver-cluster"
+  source = "../../../../modules/services/webserver-cluster"
 
   cluster_name           = "webserver-prod"
   db_remote_state_bucket = "terraform-up-and-running-state-taniai"

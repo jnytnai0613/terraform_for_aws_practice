@@ -5,7 +5,7 @@ data "aws_iam_policy_document" "assume_policy" {
     actions = ["sts:AssumeRole"]
 
     principals {
-      type = "Service"
+      type        = "Service"
       identifiers = ["lambda.amazonaws.com"]
     }
     # デフォルトAllow
@@ -20,9 +20,9 @@ data "aws_iam_policy_document" "assume_policy" {
 data "aws_iam_policy_document" "example_policy" {
   statement {
     actions = [
-        "logs:CreateLogStream",
-        "logs:CreateLogGroup",
-        "logs:PutLogEvents"
+      "logs:CreateLogStream",
+      "logs:CreateLogGroup",
+      "logs:PutLogEvents"
     ]
     resources = ["arn:aws:logs:*:*:*"]
   }
@@ -36,22 +36,22 @@ data "archive_file" "zip" {
 }
 
 resource "aws_iam_role" "lambda" {
-  name = "labmda_all_allow"
+  name               = "labmda_all_allow"
   assume_role_policy = data.aws_iam_policy_document.assume_policy.json
 }
 
 resource "aws_iam_role_policy" "lambda" {
-  name = "lambda_policy"
-  role = aws_iam_role.lambda.id
+  name   = "lambda_policy"
+  role   = aws_iam_role.lambda.id
   policy = data.aws_iam_policy_document.example_policy.json
 }
 
 resource "aws_lambda_function" "example" {
   role = aws_iam_role.lambda.arn
 
-  runtime = "python3.13"
-  function_name = "example_function"
-  handler = "test.handler"
-  filename = data.archive_file.zip.output_path
+  runtime          = "python3.13"
+  function_name    = "example_function"
+  handler          = "test.handler"
+  filename         = data.archive_file.zip.output_path
   source_code_hash = data.archive_file.zip.output_sha256
 }
