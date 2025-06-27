@@ -87,10 +87,10 @@ $ kubectl apply -f blue-green-upgrade/assets/sample-app/blue/fastapi.yaml
 
 ### 2. Green EKSクラスタデプロイ
 ```sh
-cd blue-cluster
-terraform init
-terraform plan
-terraform apply
+$ cd blue-cluster
+$ terraform init
+$ terraform plan
+$ terraform apply
 ```
 ここで、Blue面と同じく、先に作成したIAMロールと、EKSクラスタ、namespace、ServiceAccountを紐づけます。</br>
 この時、AWS LoadBalancer Controller、ExternalDNS、アプリケーションに紐づけます。</br>
@@ -124,6 +124,6 @@ Blueと同じドメインでIngressをデプロイします。</br>
 1. Route53のレコードIDが"test-green"になっているAレコード、AAAAレコード、TXTレコードを削除し、ExternalDNSによって再度登録されるのを待ちます。
 1. これでGreen面の新クラスタに全部のトラフィックが流れます。問題ないことを確認後、以下コマンドでBlue面を削除します。
 ```sh
-cd blue-green-upgrade/blue-cluster
-terraform destroy
+$ cd blue-green-upgrade/blue-cluster
+$ terraform destroy
 ```
