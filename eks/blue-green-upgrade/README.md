@@ -50,7 +50,7 @@ $ docker tag blue-green-ecr:latest <ECRホスト名>/image:latest
 $ docker push <ECRホスト名>/image:latest
 ```
 
-### Amazon DynamoDBへデータ投入
+#### Amazon DynamoDBへデータ投入
 ```sh
 # キーは任意の値とする
 $ aws dynamodb put-item --table-name test-dynamodb --item '{"UserId": {"S": "3"}}'
