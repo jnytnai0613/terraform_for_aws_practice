@@ -30,7 +30,9 @@ EKSを作成するModuleは[こちらを参照](https://github.com/jnytnai0613/t
 
 ## Pod Identityについて
 IAMロールとEKSのServiceAccountを紐づける仕組みです。</br>
-[AWS公式のModule terraform-aws-eks-pod-identity](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/tree/6d4aa31990e4179640c869505169ebc78f200e10)でも可能ですが、Roleの新規作成が前提となっています。</br>
+[AWS公式のModule terraform-aws-eks-pod-identity](https://registry.terraform.io/modules/terraform-aws-modules/eks-pod-identity/aws/latest)でも可能ですが、Roleの新規作成が前提となっています。</br>
+以下Module内の[該当箇所](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/blob/6d4aa31990e4179640c869505169ebc78f200e10/main.tf#L183-L196)です。
+
 ```hcl
 resource "aws_eks_pod_identity_association" "this" {
   for_each = { for k, v in var.associations : k => v if var.create }
@@ -47,7 +49,7 @@ resource "aws_eks_pod_identity_association" "this" {
 ```
 今回はEKSを2面用意し、BlueとGreenでRoleを同じものを使用します。</br>
 その場合、前述した公式Moduleでは要件に合わないため、
-ロールの使い回しが可能な、aws_eks_pod_identity_associationリソースを使用しています。
+ロールの使い回しが可能な、[aws_eks_pod_identity_associationリソース](https://registry.terraform.io/providers/hashicorp/aws/5.37.0/docs/resources/eks_pod_identity_association)を使用しています。
 
 ## 前提条件
 - Route53へドメインおよびホストゾーンが登録されていること。
