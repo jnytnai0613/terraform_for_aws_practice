@@ -29,9 +29,9 @@ EKSを作成するModuleは[こちらを参照](https://github.com/jnytnai0613/t
 - Route53 Weighted Routing
 
 ## Pod Identityについて
-IAMロールとEKSのServiceAccountを紐づける仕組みです。</br>
-[AWS公式のModule terraform-aws-eks-pod-identity](https://registry.terraform.io/modules/terraform-aws-modules/eks-pod-identity/aws/latest)でも可能ですが、Roleの新規作成が前提となっています。</br>
-以下Module内の[該当箇所](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/blob/6d4aa31990e4179640c869505169ebc78f200e10/main.tf#L183-L196)です。
+EKSのServiceAccountに対してIAMロールを紐づける仕組みとして、
+[AWS公式のModule terraform-aws-eks-pod-identity](https://registry.terraform.io/modules/terraform-aws-modules/eks-pod-identity/aws/latest)の利用も可能です、しかしこのモジュールでは、[aws_eks_pod_identity_associationリソース](https://registry.terraform.io/providers/hashicorp/aws/5.37.0/docs/resources/eks_pod_identity_association)の`role_arn` に指定されるロールが、新規作成されることを前提としています。</br>
+以下は、該当Module内のコード（[該当箇所のリンク](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/blob/6d4aa31990e4179640c869505169ebc78f200e10/main.tf#L183-L196)）です。
 
 ```hcl
 resource "aws_eks_pod_identity_association" "this" {
@@ -47,9 +47,16 @@ resource "aws_eks_pod_identity_association" "this" {
   tags = merge(var.tags, try(each.value.tags, var.association_defaults.tags, {}))
 }
 ```
-今回はEKSを2面用意し、BlueとGreenでRoleを同じものを使用します。</br>
-その場合、前述した公式Moduleでは要件に合わないため、
-ロールの使い回しが可能な、[aws_eks_pod_identity_associationリソース](https://registry.terraform.io/providers/hashicorp/aws/5.37.0/docs/resources/eks_pod_identity_association)を使用しています。
+今回はEKSクラスターをBlue/Greenの2系統で構築し、それぞれで**同一のIAMロール**を使用する必要があります。そのため、新規ロール作成が前提となっている公式モジュールでは要件を満たせません。
+そこで、`aws_eks_pod_identity_association`リソースをモジュール経由ではなく直接コード内に記述し、あらかじめ作成済みのIAMロールARNを明示的に指定する形でPod Identityを設定しています。
+```hcl
+resource "aws_eks_pod_identity_association" "external-dns-identity" {
+  cluster_name    = module.eks.cluster_name
+  namespace       = local.external_dns_namespace
+  service_account = local.external_dns_serviceaccount
+  role_arn        = data.terraform_remote_state.common.outputs.pod_external_dns_role_arn
+}
+```
 
 ## 前提条件
 - Route53へドメインおよびホストゾーンが登録されていること。
