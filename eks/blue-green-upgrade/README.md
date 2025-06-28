@@ -7,14 +7,17 @@
 - [EKS Pod Identity を活用して Terraform でプロビジョニングした EKS を Blue/Green アップグレードしてみた](https://dev.classmethod.jp/articles/eks-pod-identity-terraform-blue-green-upgrade/)
 - [Amazon EKS Blueprints for Terraform](https://github.com/aws-ia/terraform-aws-eks-blueprints/tree/main/patterns/blue-green-upgrade)
 
+## ディレクトリ構成
+EKSを作成するModuleは[こちらを参照](https://github.com/jnytnai0613/terraform_for_aws_practice/tree/main/modules/services/blue-green-cluster)
 ```
-blue-green-upgrade/
-├── eks-blue/          # EKS 1.32 クラスター (Blue)
-├── eks-green/         # EKS 1.33 クラスター (Green)
-├── environment/       # 共通の VPC, Route53 Hosted Zone, ACM 証明書など
-└── assets/            # モジュール共通設定（provider, backendなど）
-:
-└── modules/services/blue-green-cluster # EKS共通モジュール
+.
+├── eks/blue-green-upgrade
+│   ├── assets        # サンプルアプリや各種yamlファイル
+│   ├── blue-cluster  # EKS 1.33 クラスター (Green)
+│   ├── green-cluster # EKS 1.32 クラスター (Blue)
+│   ├── common        # 共通の VPC, Route53 Hosted Zone
+│
+└── modules/services/blue-green-cluster # EKS作成モジュール
 ```
 
 ## 使用技術
@@ -24,6 +27,27 @@ blue-green-upgrade/
 - [AWS Load Balancer Controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.13/)
 - [ExternalDNS](https://github.com/kubernetes-sigs/external-dns)
 - Route53 Weighted Routing
+
+## Pod Identityについて
+IAMロールとEKSのServiceAccountを紐づける仕組みです。</br>
+[AWS公式のModule terraform-aws-eks-pod-identity](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/tree/6d4aa31990e4179640c869505169ebc78f200e10)でも可能ですが、Roleの新規作成が前提となっています。</br>
+```hcl
+resource "aws_eks_pod_identity_association" "this" {
+  for_each = { for k, v in var.associations : k => v if var.create }
+
+
+  cluster_name    = try(each.value.cluster_name, var.association_defaults.cluster_name)
+  namespace       = try(each.value.namespace, var.association_defaults.namespace)
+  service_account = try(each.value.service_account, var.association_defaults.service_account)
+  role_arn        = aws_iam_role.this[0].arn
+
+
+  tags = merge(var.tags, try(each.value.tags, var.association_defaults.tags, {}))
+}
+```
+今回はEKSを2面用意し、BlueとGreenでRoleを同じものを使用します。</br>
+その場合、前述した公式Moduleでは要件に合わないため、
+ロールの使い回しが可能な、aws_eks_pod_identity_associationリソースを使用しています。
 
 ## 前提条件
 - Route53へドメインおよびホストゾーンが登録されていること。
