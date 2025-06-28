@@ -30,7 +30,7 @@ EKSを作成するModuleは[こちらを参照](https://github.com/jnytnai0613/t
 
 ## Pod Identityについて
 EKSのServiceAccountに対してIAMロールを紐づける仕組みとして、
-[AWS公式のModule terraform-aws-eks-pod-identity](https://registry.terraform.io/modules/terraform-aws-modules/eks-pod-identity/aws/latest)の利用も可能です、しかしこのモジュールでは、[aws_eks_pod_identity_associationリソース](https://registry.terraform.io/providers/hashicorp/aws/5.37.0/docs/resources/eks_pod_identity_association)の`role_arn` に指定されるロールが、新規作成されることを前提としています。</br>
+[AWS公式のModule terraform-aws-eks-pod-identity](https://registry.terraform.io/modules/terraform-aws-modules/eks-pod-identity/aws/latest)の利用も可能です。しかしこのモジュールでは、[aws_eks_pod_identity_associationリソース](https://registry.terraform.io/providers/hashicorp/aws/5.37.0/docs/resources/eks_pod_identity_association)の`role_arn` に指定されるロールが、新規作成されることを前提としています。</br>
 以下は、該当Module内のコード（[該当箇所のリンク](https://github.com/terraform-aws-modules/terraform-aws-eks-pod-identity/blob/6d4aa31990e4179640c869505169ebc78f200e10/main.tf#L183-L196)）です。
 
 ```hcl
