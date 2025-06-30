@@ -59,7 +59,8 @@ resource "aws_eks_pod_identity_association" "external-dns-identity" {
 ```
 
 ## 前提条件
-- Route53へドメインおよびホストゾーンが登録されていること。
+- 各ディレクトリのBackendのBucket名やKeyなどは任意の名前に変更されていること
+- Route53へドメインおよびホストゾーンが登録されていること
 - サンプルアプリのDockerコンテナがビルドされていること
 
 ## 手順
