@@ -9,11 +9,6 @@ TerraformでのAWSリソース実装学習用Repo
 .
 ├── eks
 │   ├── blue-green-upgrade         : クラスタのBlue-Green Upgarde
-│   │   ├── assets
-│   │   ├── blue-cluster
-│   │   ├── common
-│   │   ├── green-cluster
-│   │   └── README.md
 │   └── create-eks                 : 単純なシングルクラスタ
 ├── examples
 │   ├── codebuild                  : GitHubにあるコードをdocker image化するCI
