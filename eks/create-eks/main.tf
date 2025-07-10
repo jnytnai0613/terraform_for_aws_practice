@@ -1,5 +1,5 @@
 module "eks_cluster" {
-  source = "../../../modules/services/simple-eks-cluster"
+  source = "../../modules/services/simple-eks-cluster"
 
   name         = "example-eks-cluster"
   min_size     = 1
